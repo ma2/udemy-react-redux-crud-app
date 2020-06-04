@@ -1,11 +1,5 @@
 import React from 'react';
-
-// クラスコンポーネント
-// class App extends Component {
-//   render() {
-//     return <div>Hi form Class component</div>;
-//   }
-// }
+import PropTypes from 'prop-types';
 
 // 関数コンポーネント
 const App = () => {
@@ -16,10 +10,12 @@ const App = () => {
     },
     {
       name: 'Hanako',
-      age: 12,
+      // ageが文字列
+      age: '12',
     },
     {
-      name: 'Jiro',
+      // nameが数値、ageが無い
+      name: 100,
     },
   ];
   return (
@@ -31,6 +27,7 @@ const App = () => {
   );
 };
 
+// propsを持つ関数コンポーネント
 const User = (props) => {
   return (
     <div>
@@ -39,9 +36,11 @@ const User = (props) => {
   );
 };
 
-// propsに設定がないときのデフォルトを指定できる
-User.defaultProps = {
-  age: 1,
+// propsの型宣言
+// 違反しているとコンソールに警告が出る
+User.propTypes = {
+  name: PropTypes.string,
+  age: PropTypes.number.isRequired, // 必須宣言
 };
 
 export default App;
