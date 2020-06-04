@@ -1,22 +1,4 @@
-import React, { Component } from 'react';
-
-// 関数コンポーネント
-// 講義と表記が違うのは、講義ではクラスコンポーネントになっているから
-// function App() {
-//   // Reactはreturnするタグをひとつにしないといけない
-//   // そのために不要なdivが嫌な場合には、React.Fragmentを使う
-//   return (
-//     <React.Fragment>
-//       <label htmlFor='bar'>bar</label>
-//       <input
-//         type='text'
-//         onChange={() => {
-//           console.log('clicked!');
-//         }}
-//       />
-//     </React.Fragment>
-//   );
-// }
+import React from 'react';
 
 // クラスコンポーネント
 // class App extends Component {
@@ -27,18 +9,39 @@ import React, { Component } from 'react';
 
 // 関数コンポーネント
 const App = () => {
+  const profiles = [
+    {
+      name: 'Taro',
+      age: 10,
+    },
+    {
+      name: 'Hanako',
+      age: 12,
+    },
+    {
+      name: 'Jiro',
+    },
+  ];
   return (
     <div>
-      <Cat />
-      <Cat />
-      <Cat />
-      <Cat />
+      {profiles.map((profile, index) => {
+        return <User name={profile.name} age={profile.age} key={index} />;
+      })}
     </div>
   );
 };
 
-const Cat = () => {
-  return <div>Meow!</div>;
+const User = (props) => {
+  return (
+    <div>
+      Hi, I'm {props.name}, and {props.age} years old!
+    </div>
+  );
+};
+
+// propsに設定がないときのデフォルトを指定できる
+User.defaultProps = {
+  age: 1,
 };
 
 export default App;
