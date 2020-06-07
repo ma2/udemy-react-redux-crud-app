@@ -1,11 +1,11 @@
-// リデューサ
+// countのリデューサ（stateとactionから新しいstateを返す関数）
 
 import { INCREMENT, DECREMENT } from '../actions';
 
 // デフォルトのstate
 const initialState = { value: 0 };
 
-// actionに応じてstateを変える関数
+// リデューサの実装
 export default (state = initialState, action) => {
   switch (action.type) {
     case INCREMENT:
