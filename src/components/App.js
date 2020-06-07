@@ -1,36 +1,37 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-// 関数コンポーネント
-const App = () => <Counter></Counter>;
+import { increment, decrement } from '../actions';
 
 // stateを持つクラスコンポーネント
-class Counter extends Component {
+class App extends Component {
   // コンストラクタ内でstateの初期化
-  constructor(props) {
-    super(props);
-    this.state = { count: 0 };
-  }
-
-  handlePlusButton = () => {
-    // setStateはstateを変えるだけではなく、それを関連DOMに通知する
-    // なのでsetStateを使わないとrenderは実行されない
-    // 直接this.state.countを変えてもダメ
-    this.setState({ count: this.state.count + 1 });
-  };
-
-  handleMinusButton = () => {
-    this.setState({ count: this.state.count - 1 });
-  };
+  // reduxではリデューサがやるので不要になる
+  // handlePlusButtonとhandleMinusButtonはアクションクリエータがやるので不要になる
 
   render() {
+    const props = this.props;
     return (
       <React.Fragment>
-        <div>count: {this.state.count}</div>
-        <button onClick={this.handlePlusButton}>+1</button>
-        <button onClick={this.handleMinusButton}>-1</button>
+        <div>value: {props.value}</div>
+        <button onClick={props.increment}>+1</button>
+        <button onClick={props.decrement}>-1</button>
       </React.Fragment>
     );
   }
 }
 
-export default App;
+// stateからコンポーネントに必要なものを取り出してpropsにマッピングする
+const mapStateToProps = (state) => ({ value: state.count.value });
+
+// actionが発生したときにリデューサにtypeに応じた状態遷移を実行させるのがdispatch関数
+const mapDispatchToProps = (dispatch) => ({
+  increment: () => dispatch(increment()),
+  decrement: () => dispatch(decrement()),
+});
+
+// 上記のショートハンド
+// const mapDispatchToProps = { increment, decrement };
+
+// stateとアクションを関連付ける
+export default connect(mapStateToProps, mapDispatchToProps)(App);
