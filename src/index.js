@@ -1,12 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+
 import './index.css';
-import App from './App';
+import reducer from './reducers';
+
+import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 
+// ストアの作成（全stateの管理の責務を持つ）
+const store = createStore(reducer);
+
+// AppコンポーネントをProviderでラップして、ストアを渡す
+// こうすることで全コンポーネントでストアが使える
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
