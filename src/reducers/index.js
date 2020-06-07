@@ -1,6 +1,6 @@
 // アプリ内の全リデューサを1つにまとめる
 import { combineReducers } from 'redux';
-import count from '/.count';
+import count from './count';
 
 // ストアで使うのでexport
 // 今回は一つ（count）だけ

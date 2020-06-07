@@ -17,5 +17,5 @@ export const decrement = () => ({
 });
 
 // 他のところでも使うのでexportしておく
-const INCREMENT = 'INCREMENT';
-const DECREMENT = 'DECREMENT';
+export const INCREMENT = 'INCREMENT';
+export const DECREMENT = 'DECREMENT';
