@@ -1,9 +1,8 @@
 // アプリ内の全リデューサを1つにまとめる
 import { combineReducers } from 'redux';
-import count from './count';
+import events from './events';
 
 // ストアで使うのでexport
-// 今回は一つ（count）だけ
-export default combineReducers({ count });
+export default combineReducers({ events });
 // 複数のリデューサーがあるときは
 // export default combineReducers({ foo, bar, baz });

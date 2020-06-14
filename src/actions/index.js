@@ -1,21 +1,12 @@
-// ActionはJSのオブジェクト
-// typeというキーと、その値を持つ
-// typeの値はユニークでなければならない
-// {
-//   type: 'INCREMENT',
-// }
-// Actionを返す関数をトクションクリエータと呼ぶ
+import axios from 'axios';
 
-// アクションクリエータ
-// オブジェクトを返すときは外側に小カッコが必要（だと思う）
-export const increment = () => ({
-  type: 'INCREMENT',
-});
+const ROOT_URL = 'https://udemy-utils.herokuapp.com/api/v1';
+const QUERYSTRING = '?token=token123';
 
-export const decrement = () => ({
-  type: 'DECREMENT',
-});
-
+// redux-thunkによって、アクションの代わりに関数を返せるようになる
+export const readEvents = () => async (dispatch) => {
+  const response = await axios.get(`${ROOT_URL}/events${QUERYSTRING}`);
+  dispatch({ type: READ_EVENTS, response });
+};
 // 他のところでも使うのでexportしておく
-export const INCREMENT = 'INCREMENT';
-export const DECREMENT = 'DECREMENT';
+export const READ_EVENTS = 'READ_EVENTS';
