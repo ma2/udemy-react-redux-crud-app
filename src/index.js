@@ -4,7 +4,8 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { composeWithDevTools } from 'redux-devtools-extension'
+import { composeWithDevTools } from 'redux-devtools-extension';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import './index.css';
 import reducer from './reducers';
@@ -15,8 +16,10 @@ import EventsShow from './components/events_show';
 import * as serviceWorker from './serviceWorker';
 
 // 開発モードのときはcomposeWithDevToolsを組み込む
-const enhancer = process.env.NODE_ENV === 'development' ?
-  composeWithDevTools(applyMiddleware(thunk)) : applyMiddleware(thunk);
+const enhancer =
+  process.env.NODE_ENV === 'development'
+    ? composeWithDevTools(applyMiddleware(thunk))
+    : applyMiddleware(thunk);
 // ストアの作成（全stateの管理の責務を持つ）
 // 第二引数は組み込むミドルウェア
 const store = createStore(reducer, enhancer);
@@ -24,18 +27,18 @@ const store = createStore(reducer, enhancer);
 // AppコンポーネントをProviderでラップして、ストアを渡す
 // こうすることで全コンポーネントでストアが使える
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={ store }>
+  <MuiThemeProvider>
+    <Provider store={store}>
       <BrowserRouter>
         <Switch>
-          <Route path='/events/new' component={ EventsNew } />
-          <Route path='/events/:id' component={ EventsShow } />
-          <Route exact path='/' component={ EventsIndex } />
-          <Route exact path='/events' component={ EventsIndex } />
+          <Route path='/events/new' component={EventsNew} />
+          <Route path='/events/:id' component={EventsShow} />
+          <Route exact path='/' component={EventsIndex} />
+          <Route exact path='/events' component={EventsIndex} />
         </Switch>
       </BrowserRouter>
     </Provider>
-  </React.StrictMode>,
+  </MuiThemeProvider>,
   document.getElementById('root')
 );
 
